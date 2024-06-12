@@ -1,5 +1,6 @@
 import express from "express"
 import {createNotification, getNotification, deleteNotification,getAllNotifications } from '../controllers/notifiController.js'
+import { authorize } from "../middleware/authMiddleware.js";
 
 const notifiRoutes = express.Router();
 
