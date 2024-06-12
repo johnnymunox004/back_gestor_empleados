@@ -7,6 +7,8 @@ import {
   getAllDepartamentos,
   assignTo,
 } from '../controllers/departamentoController.js';
+import { authorize } from "../middleware/authMiddleware.js";
+
 
 const routesDepartamentos = express.Router();
 
