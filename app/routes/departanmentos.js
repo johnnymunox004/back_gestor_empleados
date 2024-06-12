@@ -10,12 +10,12 @@ import {
 
 const routesDepartamentos = express.Router();
 
-routesDepartamentos.post('/departamentos', createDepartamento);
-routesDepartamentos.get('/departamentos', getAllDepartamentos);
-routesDepartamentos.get('/departamentos/:id', getDepartamento);
-routesDepartamentos.put('/departamentos/:id', updateDepartamento);
-routesDepartamentos.delete('/departamentos/:id', deleteDepartamento);
-routesDepartamentos.post('/departamentos/assign', assignTo);
+routesDepartamentos.post('/departamentos',authorize(["Administrador"]), createDepartamento);
+routesDepartamentos.get('/departamentos',authorize(["Administrador"]), getAllDepartamentos);
+routesDepartamentos.get('/departamentos/:id',authorize(["Administrador"]), getDepartamento);
+routesDepartamentos.put('/departamentos/:id',authorize(["Administrador"]), updateDepartamento);
+routesDepartamentos.delete('/departamentos/:id',authorize(["Administrador"]), deleteDepartamento);
+routesDepartamentos.post('/departamentos/assign',authorize(["Administrador"]), assignTo);
 
 
 export default routesDepartamentos;
