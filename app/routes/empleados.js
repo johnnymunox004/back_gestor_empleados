@@ -5,10 +5,10 @@ const empleadosRoutes = express.Router();
 
 
 
-empleadosRoutes.post('/empleados', createEmpleado);
-empleadosRoutes.get('/empleados', getAllEmpleados);
-empleadosRoutes.get('/empleados/:id', getEmpleado);
-empleadosRoutes.put('/empleados/:id',  updateEmpleado);
-empleadosRoutes.delete('/empleados/:id',  deleteEmpleado);
+empleadosRoutes.post('/empleados',authorize(["Administrador"]), createEmpleado);
+empleadosRoutes.get('/empleados',authorize(["Administrador"]), getAllEmpleados);
+empleadosRoutes.get('/empleados/:id', authorize(["Administrador"]),getEmpleado);
+empleadosRoutes.put('/empleados/:id',authorize(["Administrador"]),  updateEmpleado);
+empleadosRoutes.delete('/empleados/:id', authorize(["Administrador"]), deleteEmpleado);
 
 export default empleadosRoutes
