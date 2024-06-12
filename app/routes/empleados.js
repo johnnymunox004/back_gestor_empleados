@@ -1,5 +1,6 @@
 import express from "express"
 import {createEmpleado, deleteEmpleado, getAllEmpleados, getEmpleado, updateEmpleado} from '../controllers/empleadopsControllers.js'
+import { authorize } from "../middleware/authMiddleware.js";
 
 const empleadosRoutes = express.Router();
 
