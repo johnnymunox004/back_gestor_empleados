@@ -1,14 +1,13 @@
 import express from "express"
 import {createNotification, getNotification, deleteNotification,getAllNotifications } from '../controllers/notifiController.js'
-import { authorize } from "../middleware/authMiddleware.js";
 
 const notifiRoutes = express.Router();
 
 
 
-notifiRoutes.post('/notifi',authorize(["Administrador"]), createNotification);
-notifiRoutes.get('/notifi',authorize(["Administrador"]), getAllNotifications);
-notifiRoutes.get('/notifi/:id',authorize(["Administrador"]), getNotification);
-notifiRoutes.delete('/notifi/:id',authorize(["Administrador"]),  deleteNotification);
+notifiRoutes.post('/notifi', createNotification);
+notifiRoutes.get('/notifi', getAllNotifications);
+notifiRoutes.get('/notifi/:id', getNotification);
+notifiRoutes.delete('/notifi/:id',  deleteNotification);
 
 export default notifiRoutes
