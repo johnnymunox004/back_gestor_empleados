@@ -12,6 +12,10 @@ async function createAspirante(req, res) {
     telefono,
   } = req.body;
 
+  if (!nombre || !identificacion || !edad || !sexo || !email || !telefono) {
+    return res.status(400).json({ message: "Todos los campos son obligatorios" });
+  }
+
   try {
     const newAspirante = {
       nombre,
@@ -45,28 +49,31 @@ async function createEmpleados(req, res) {
     telefono,
   } = req.body;
 
+  if (!nombre || !identificacion || !edad || !sexo || !email || !telefono) {
+    return res.status(400).json({ message: "Todos los campos son obligatorios" });
+  }
+
   try {
-    const newEmpleados = {
+    const newEmpleado = {
       nombre,
       identificacion,
       edad,
       sexo,
-      rol: "empleado", // Rol por defecto es "empleado"
+      rol: "empleado",
       file,
       email,
       telefono,
-      estado: "en proceso", // Estado por defecto es "en proceso"
+      estado: "en proceso",
       date_create: new Date(),
     };
 
-    await collection.insertOne(newEmpleados);
+    await collection.insertOne(newEmpleado);
     res.status(201).json({ message: "Empleado creado exitosamente" });
   } catch (error) {
-    console.error(`Error registrando Empleado: ${error}`);
+    console.error(`Error registrando empleado: ${error}`);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 }
-
 
 // Leer todos
 const getAllAspirantes = async (req, res) => {
@@ -83,6 +90,10 @@ const getAllAspirantes = async (req, res) => {
 async function getAspirante(req, res) {
   try {
     const id = req.params.id;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+
     const aspirante = await collection.findOne({ _id: new ObjectId(id) });
     if (aspirante) {
       res.status(200).json(aspirante);
@@ -90,6 +101,7 @@ async function getAspirante(req, res) {
       res.status(404).json({ message: "Aspirante no encontrado" });
     }
   } catch (error) {
+    console.error(`Error obteniendo aspirante: ${error}`);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 }
@@ -98,6 +110,10 @@ async function getAspirante(req, res) {
 async function updateAspirante(req, res) {
   try {
     const id = req.params.id;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+
     const updates = {
       nombre: req.body.nombre,
       identificacion: req.body.identificacion,
@@ -135,6 +151,10 @@ async function updateAspirante(req, res) {
 async function deleteAspirante(req, res) {
   try {
     const id = req.params.id;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+
     const result = await collection.deleteOne({ _id: new ObjectId(id) });
     if (result.deletedCount === 0) {
       res.status(404).json({ message: "Aspirante no encontrado" });
@@ -149,12 +169,18 @@ async function deleteAspirante(req, res) {
 
 // Función auxiliar para obtener aspirante por ID
 async function getAspiranteById(aspiranteId) {
+  if (!ObjectId.isValid(aspiranteId)) {
+    throw new Error("ID inválido");
+  }
   const aspirante = await collection.findOne({ _id: new ObjectId(aspiranteId) });
   return aspirante;
 }
 
 // Función auxiliar para actualizar aspirante
 async function updateAspiranteOne(aspiranteId, updatedAspiranteData) {
+  if (!ObjectId.isValid(aspiranteId)) {
+    throw new Error("ID inválido");
+  }
   await collection.updateOne(
     { _id: new ObjectId(aspiranteId) },
     { $set: updatedAspiranteData }
