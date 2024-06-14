@@ -34,7 +34,6 @@ async function createAspirante(req, res) {
   }
 }
 
-
 async function createEmpleados(req, res) {
   const {
     nombre,
@@ -47,23 +46,23 @@ async function createEmpleados(req, res) {
   } = req.body;
 
   try {
-    const newEmpleado = {
+    const newEmpleados = {
       nombre,
       identificacion,
       edad,
       sexo,
-      rol: "empleado",
+      rol: "empleado", // Rol por defecto es "empleado"
       file,
       email,
       telefono,
-      estado: "en proceso",
+      estado: "en proceso", // Estado por defecto es "en proceso"
       date_create: new Date(),
     };
 
-    await collection.insertOne(newEmpleado);
+    await collection.insertOne(newEmpleados);
     res.status(201).json({ message: "Empleado creado exitosamente" });
   } catch (error) {
-    console.error(`Error registrando empleado: ${error}`);
+    console.error(`Error registrando Empleado: ${error}`);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 }
