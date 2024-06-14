@@ -163,6 +163,7 @@ async function updateAspiranteOne(aspiranteId, updatedAspiranteData) {
 
 export {
   createAspirante,
+  createEmpleados,
   getAspirante,
   updateAspirante,
   deleteAspirante,
