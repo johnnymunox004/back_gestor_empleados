@@ -6,7 +6,7 @@ const empleadosRoutes = express.Router();
 
 
 
-empleadosRoutes.post('/empleados',authorize(["Administrador"]), createEmpleado);
+empleadosRoutes.post('/empleado',authorize(["Administrador"]), createEmpleado);
 empleadosRoutes.get('/empleados',authorize(["Administrador"]), getAllEmpleados);
 empleadosRoutes.get('/empleados/:id', authorize(["Administrador"]),getEmpleado);
 empleadosRoutes.put('/empleados/:id',authorize(["Administrador"]),  updateEmpleado);
