@@ -35,6 +35,39 @@ async function createAspirante(req, res) {
 }
 
 
+async function createEmpleados(req, res) {
+  const {
+    nombre,
+    identificacion,
+    edad,
+    sexo,
+    file,
+    email,
+    telefono,
+  } = req.body;
+
+  try {
+    const newAspirante = {
+      nombre,
+      identificacion,
+      edad,
+      sexo,
+      rol: "empleados", // Rol por defecto es "aspirante"
+      file,
+      email,
+      telefono,
+      estado: "en proceso", // Estado por defecto es "en proceso"
+      date_create: new Date(),
+    };
+
+    await collection.insertOne(newAspirante);
+    res.status(201).json({ message: "Aspirante creado exitosamente" });
+  } catch (error) {
+    console.error(`Error registrando aspirante: ${error}`);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+}
+
 // Leer todos
 const getAllAspirantes = async (req, res) => {
   try {
