@@ -35,7 +35,7 @@ async function createAspirante(req, res) {
 }
 
 
-async function createEmpleado(req, res) {
+async function createEmpleados(req, res) {
   const {
     nombre,
     identificacion,
